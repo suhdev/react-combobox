@@ -1,0 +1,127 @@
+$react-combobox-height:32px !default;
+$react-combobox-font-size:14px !default;
+$react-combobox-label-color:black !default;
+$react-combobox-label-background:white !default;
+$react-combobox-label-vertical-padding:0px !default;
+$react-combobox-label-horizontal-padding:7px !default;
+$react-combobox-label-font-size:$react-combobox-font-size !default;
+$react-combobox-label-caret-size:10px !default;
+$react-combobox-label-border-radius:0px !default;
+$react-combobox-menu-background:$react-combobox-label-background !default;
+$react-combobox-menu-color:$react-combobox-label-color !default;
+$react-combobox-menu-font-size:$react-combobox-font-size !default;
+$react-combobox-menu-max-height:200px !default;
+$react-combobox-menu-border:1px solid black !default;
+$react-combobox-menu-item-height:$react-combobox-height !default;
+$react-combobox-menu-item-line-height:1.2em !default;
+$react-combobox-menu-item-background:$react-combobox-menu-background !default;
+$react-combobox-menu-item-color:$react-combobox-menu-color !default;
+$react-combobox-menu-item-margin:0px !default;
+$react-combobox-menu-item-vertical-padding:$react-combobox-label-vertical-padding !default;
+$react-combobox-menu-item-horizontal-padding:$react-combobox-label-horizontal-padding !default;
+%box{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.react-combobox{
+	@extend %box;
+	position:relative;
+    height:$react-combobox-height;
+    line-height: $react-combobox-height;
+	
+	.cbo-label{
+        @extend %box;
+		height:$react-combobox-height;
+		line-height:$react-combobox-height;
+		font-size:$react-combobox-label-font-size;
+		background-color:$react-combobox-label-background;
+		color:$react-combobox-label-color;
+		padding:$react-combobox-label-vertical-padding $react-combobox-label-horizontal-padding;
+        -webkit-border-radius: $react-combobox-label-border-radius;
+        -moz-border-radius: $react-combobox-label-border-radius;
+        -ms-border-radius: $react-combobox-label-border-radius;
+        -o-border-radius: $react-combobox-label-border-radius;
+        border-radius: $react-combobox-label-border-radius;
+		cursor:pointer;
+
+		&:after{
+			border:$react-combobox-label-caret-size solid transparent;
+			margin-top:-($react-combobox-label-caret-size/2);
+			border-top:$react-combobox-label-caret-size solid $react-combobox-label-color;
+			right:$react-combobox-label-horizontal-padding;
+			content:' ';
+			display:block;
+			position:absolute;
+			top:50%;
+			height:0px;
+			width:0px;
+			cursor:pointer;
+		}
+	}
+
+	.cbo-menu{
+        @extend %box;
+		max-height:$react-combobox-menu-max-height;
+		background: $react-combobox-menu-background;
+		color:$react-combobox-menu-color;
+		border:$react-combobox-menu-border;
+		position:absolute;
+		top:100%;
+		left:0px;
+		width:100%;
+		overflow:auto;
+		z-index:200;
+		display:none;
+
+		.cbo-item{
+            @extend %box;
+            height:$react-combobox-menu-item-height;
+            line-height:$react-combobox-menu-item-line-height;
+			background-color: $react-combobox-menu-item-background;
+            color: $react-combobox-menu-item-color;
+			border:$react-combobox-menu-item-border;
+			margin:$react-combobox-menu-item-margin;
+			padding:$react-combobox-menu-item-vertical-padding $react-combobox-menu-item-horizontal-padding;
+			position:relative;
+			cursor:pointer;
+			width:100%;
+			&:hover{
+				background-color: darken($react-combobox-menu-item-background,20%);
+			}
+		}
+	}
+
+    &.autocomplete {
+        .cbo-label{
+            padding:0px;
+        }
+
+		.cbo-input{
+            @extend %box;
+            padding:$react-combobox-label-vertical-padding $react-combobox-label-horizontal-padding;
+			background-color:$react-combobox-label-background;
+            color:$react-combobox-label-color;
+			font-size:$react-combobox-label-font-size;
+			display:block;
+			width:100%;
+			border:none;
+			outline:none;
+			line-height:100%;
+			height:100%;
+			cursor:pointer;
+		}
+	}
+
+	&[data-active="true"]{
+		.cbo-menu{
+			display:block;
+		}
+	}
+
+	&.nodrop.autocomplete{
+		&::after,.cbo-label::after{
+			display:none;
+		}
+	}
+}

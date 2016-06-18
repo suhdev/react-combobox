@@ -1,0 +1,36 @@
+{
+  "name": "react-combobox",
+  "version": "1.0.0",
+  "description": "A ComboBox component for ReactJS applications written in TypeScript.",
+  "main": "index.js",
+  "keywords": [
+    "ComboBox",
+    "Dropdown",
+    "ReactJS",
+    "TypeScript"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suhdev/react-combobox.git"
+  },
+  "author": "Suhail Abood <suhail.abood@gmail.com> (suhailabood.me)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suhdev/react-combobox/issues"
+  },
+  "homepage": "https://github.com/suhdev/react-combobox#readme",
+  "devDependencies": {
+    "eslint": "^2.13.0",
+    "jslint": "^0.10.1",
+    "jspm": "^0.16.39",
+    "tslint": "^3.11.0",
+    "typescript": "^1.8.10"
+  },
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
