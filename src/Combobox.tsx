@@ -5,23 +5,37 @@ export interface ComboboxProps {
 	items: ComboboxItemData[];
 	onChange: Function;
 	label: string;
+	hasSearch?:boolean;
+	searchPlaceholder?:string;
 	labelRenderer?:(selItem:ComboboxItemData)=>React.ReactElement<any>;
 	selItem?: ComboboxItemData;
+
 }
 
 export interface ComboboxState {
 	selItem?: ComboboxItemData,
 	active?: boolean;
+	searchValue?:string;
 }
 
-export class Combobox extends React.Component<ComboboxProps, ComboboxState>{
+export default class Combobox extends React.Component<ComboboxProps, ComboboxState>{
 	constructor(props: ComboboxProps) {
 		super(props);
 		this.onToggleMenu = this.onToggleMenu.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.onSearchChange = this.onSearchChange.bind(this);
 		this.state = {
 			selItem: props.selItem || null,
+			searchValue:'',
 		};
+	}
+
+	onSearchChange(e:React.SyntheticEvent){
+		let el = e.target as HTMLInputElement 
+		let val = el.value; 
+		this.setState({
+			searchValue:val
+		}); 
 	}
 
 	shouldComponentUpdate(props: ComboboxProps, state: ComboboxState){
@@ -59,19 +73,32 @@ export class Combobox extends React.Component<ComboboxProps, ComboboxState>{
 			state = this.state,
 			clz = props.className || '',
 			labelText = (state.selItem && state.selItem.label) || props.label,
+			regex = new RegExp('.*'+state.searchValue+'.*','ig'),
 			label = (props.labelRenderer && props.labelRenderer(state.selItem)) || (<div className="label-wrapper">{labelText}</div>),
-			items = this.props.items.map((e,i)=>{
+			items = this.props.items.filter((e)=>{
+				return regex.test(e.label);
+			}).map((e,i)=>{
 				return (
-					<ComboboxItem key={e.id||e.key} itemKey={e.id||e.key} label={e.label} index={i} onClick={this.onChange} />
+					<ComboboxItem key={e.id||e.key} itemKey={e.id||e.key} label={e.label} 
+						index={i} item={e} onClick={this.onChange} />
 				);
 			});
 		return (
 			<div className={"react-combobox " + clz} data-active={this.state.active}>
-				<div className="cbo-label" onClick={this.onToggleMenu}>
+				<div className="react-dropdown-label" onClick={this.onToggleMenu}>
 					{label}
 				</div>
-				<div className="cbo-menu" ref="cboMenu">
-				{items}
+				<div className="react-dropdown-menu" ref="cboMenu">
+					{props.hasSearch?(
+						<div className="react-dropdown-search">
+							<input type="text" 
+								placeholder={props.searchPlaceholder} onChange={this.onSearchChange} 
+								value={state.searchValue} />
+						</div>
+					):null}
+					<div className="item-wrapper">
+					{items}
+					</div>
 				</div>
 			</div>
 		);

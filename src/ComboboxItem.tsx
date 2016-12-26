@@ -6,6 +6,7 @@ export interface ComboboxItemData {
 	label: string;
 }
 export interface ComboboxItemProps {
+	item:any;
 	label: string;
     itemKey:string|number;
     index:number;
@@ -27,18 +28,13 @@ export class ComboboxItem extends React.Component<ComboboxItemProps,ComboboxItem
 
     onClick(e:any){
         let props = this.props; 
-        props.onClick(props.index,props.itemKey);
+        props.onClick(props.item,props.itemKey);
     }
-
-	shouldComponentUpdate(nextProps:ComboboxItemProps,nextState:ComboboxItemState){
-		return nextProps.label !== this.props.label ||
-            nextProps.index !== this.props.index;
-	}
 
 	render(){
         let props = this.props;
 		return (
-			<div className="cbo-item" data-index={props.index} onClick={this.onClick}>{this.props.label}</div>
+			<div className="react-dropdown-item" data-index={props.index} onClick={this.onClick}>{this.props.label}</div>
 		);
 	}
 }

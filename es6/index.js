@@ -1,4 +1,2 @@
-import {Combobox} from './Combobox'; 
-import {ComboboxItem} from './ComboboxItem';
-
-export {Combobox,ComboboxItem}
+export {Combobox} from './Combobox'; 
+export {ComboboxItem} from './ComboboxItem';
